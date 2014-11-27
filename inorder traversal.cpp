@@ -22,10 +22,15 @@ T data;
 unique_ptr<BinaryTreeNode<T>> left, right;
 };
 
-// @include
+
 void InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root) {
+    if (root.get()) {
+        InorderTraversal(root->left);
+        cout<<root->data<<" ";
+        InorderTraversal(root->right);
+    }
 }
-// @exclude
+
 
 int main(int argc, char* argv[]) {
   //      3
@@ -43,9 +48,7 @@ int main(int argc, char* argv[]) {
       new BinaryTreeNode<int>{4, nullptr, nullptr});
   root->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{6, nullptr, nullptr});
-  // should output 3
-  //               2 5
-  //               1 4 6
+
   InorderTraversal(root);
   return 0;
 }
