@@ -30,22 +30,34 @@ bool IsBalancedBinaryTree(const unique_ptr<BinaryTreeNode<int>>& tree) {
 // First value of the return value indicates if tree is balanced, and if
 // balanced the second value of the return value is the height of tree.
 pair<bool, int> CheckBalanced(const unique_ptr<BinaryTreeNode<int>>& tree) {
-  if (tree == nullptr) {
-    return {true, -1};  // Base case.
-  }
-
-  auto left_result = CheckBalanced(tree->left);
-  if (!left_result.first) {
-    return {false, 0};  // Left subtree is not balanced.
-  }
-  auto right_result = CheckBalanced(tree->right);
-  if (!right_result.first) {
-    return {false, 0};  // Right subtree is not balanced.
-  }
-
-  bool is_balanced = abs(left_result.second - right_result.second) <= 1;
-  int height = max(left_result.second, right_result.second) + 1;
-  return {is_balanced, height};
+    pair<bool, int> tmp;
+    if (!tree->left) {
+        tmp.first = true;
+        tmp.second = 0;
+    }
+    else {
+        tmp = CheckBalanced( tree->left );
+    }
+    
+    pair<bool, int> tmp2;
+    if (!tree->right) {
+        tmp2.first = true;
+        tmp2.second = 0;
+    }
+    else {
+        tmp2 = CheckBalanced( tree->right );
+    }
+    printf("tmp.second=%d, tmp2.second=%d\n", tmp.second, tmp2.second);
+    
+    pair<bool, int> tmp3;
+    if (tmp.first && tmp2.first && std::abs(tmp.second-tmp2.second)<=1) {
+        tmp3.first = true;
+        tmp3.second =  1+tmp.second;
+    }
+    else {
+        tmp3.first = false;
+    }
+    return tmp3;
 }
 // @exclude
 
