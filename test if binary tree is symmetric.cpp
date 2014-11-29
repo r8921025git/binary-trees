@@ -28,15 +28,7 @@ bool IsSymmetric(const unique_ptr<BinaryTreeNode<int>>& tree) {
 
 bool CheckSymmetric(const unique_ptr<BinaryTreeNode<int>>& subtree_0,
                        const unique_ptr<BinaryTreeNode<int>>& subtree_1) {
-  if (subtree_0 == nullptr && subtree_1 == nullptr) {
-    return true;
-  } else if (subtree_0 != nullptr && subtree_1 != nullptr) {
-    return subtree_0->data == subtree_1->data &&
-           CheckSymmetric(subtree_0->left, subtree_1->right) &&
-           CheckSymmetric(subtree_0->right, subtree_1->left);
-  }
-  // One subtree is empty, and the other is not.
-  return false;
+
 }
 // @exclude
 
