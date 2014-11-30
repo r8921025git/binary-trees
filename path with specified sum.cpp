@@ -8,7 +8,7 @@
 using std::cout;
 using std::endl;
 using std::unique_ptr;
-
+using std::equal;
 
 template <typename T>
 struct BinaryTreeNode {
@@ -27,16 +27,23 @@ bool HasPathSum(const unique_ptr<BinaryTreeNode<int>>& root, int target_sum) {
 
 bool HasPathSumHelper(const unique_ptr<BinaryTreeNode<int>>& node,
                       int partial_path_sum, int target_sum) {
-  if (node == nullptr) {
-    return false;
-  }
-  partial_path_sum += node->data;
-  if (node->left == nullptr && node->right == nullptr) {  // Leaf.
-    return partial_path_sum == target_sum;
-  }
-  // Non-leaf.
-  return HasPathSumHelper(node->left, partial_path_sum, target_sum) ||
-         HasPathSumHelper(node->right, partial_path_sum, target_sum);
+    
+    if (node.get()) {
+        partial_path_sum += node->data;
+        bool result_1 = HasPathSumHelper(node->left, partial_path_sum, target_sum);
+        bool result_2 = HasPathSumHelper(node->right, partial_path_sum, target_sum);
+        if (result_1 || result_2)
+            return true;
+        else
+            return false;
+    }
+    else {
+        if (partial_path_sum==target_sum)
+            return true;
+        else
+            return false;
+    }
+
 }
 // @exclude
 
