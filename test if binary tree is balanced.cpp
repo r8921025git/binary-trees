@@ -21,17 +21,24 @@ struct BinaryTreeNode {
 };
 
 
-//template<typename T>
-//bool IsBalancedBinaryTree(unique_ptr<BinaryTreeNode<T>> node) {
-bool IsBalancedBinaryTree(const std::unique_ptr<BinaryTreeNode<int>> &node) { // MUST use reference !!!
+
+template<typename T>
+pair<bool,int> Helper(unique_ptr<BinaryTreeNode<T>> & node) {
     if (node==nullptr)
-        return true;
-        
-    bool L = IsBalancedBinaryTree(node->left);
-    bool R = IsBalancedBinaryTree(node->right);
-    if (L&&R)
-        return true;
-    return false;
+        return pair<bool,int>{true,0};
+
+    pair<bool,int> L = Helper(node->left);
+    pair<bool,int> R = Helper(node->right);
+    if (L.first&&R.first&& abs(L.second-R.second)<=1)
+        return pair<bool,int>{true,1+max(L.second,R.second)};
+    return pair<bool,int>{false,-1};
+}
+
+
+template<typename T>
+bool IsBalancedBinaryTree(unique_ptr<BinaryTreeNode<T>> & node) {
+    pair<bool,int> res = Helper(node);
+    return res.first;
 }
 
 int main(int argc, char* argv[]) {
