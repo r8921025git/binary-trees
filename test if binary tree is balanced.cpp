@@ -20,17 +20,18 @@ struct BinaryTreeNode {
     std::unique_ptr<BinaryTreeNode<T>> left, right;
 };
 
-int findDepth(unique_ptr<BinaryTreeNode<T>> node) {
-    
-}
 
-bool IsBalancedBinaryTree(unique_ptr<BinaryTreeNode<T>> node) {
-    depth_L = findDepth(node->left);
-    depth_R = findDepth(node->riht);
-    if (std::abs(depth_L - depth_R)>1)
-        return false;
+//template<typename T>
+//bool IsBalancedBinaryTree(unique_ptr<BinaryTreeNode<T>> node) {
+bool IsBalancedBinaryTree(const std::unique_ptr<BinaryTreeNode<int>> &node) { // MUST use reference !!!
+    if (node==nullptr)
+        return true;
         
-    return true;
+    bool L = IsBalancedBinaryTree(node->left);
+    bool R = IsBalancedBinaryTree(node->right);
+    if (L&&R)
+        return true;
+    return false;
 }
 
 int main(int argc, char* argv[]) {
