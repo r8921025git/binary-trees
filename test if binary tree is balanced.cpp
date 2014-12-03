@@ -20,46 +20,18 @@ struct BinaryTreeNode {
     std::unique_ptr<BinaryTreeNode<T>> left, right;
 };
 
-pair<bool, int> CheckBalanced(const unique_ptr<BinaryTreeNode<int>>&);
-
-// @include
-bool IsBalancedBinaryTree(const unique_ptr<BinaryTreeNode<int>>& tree) {
-  return CheckBalanced(tree).first;
+int findDepth(unique_ptr<BinaryTreeNode<T>> node) {
+    
 }
 
-// First value of the return value indicates if tree is balanced, and if
-// balanced the second value of the return value is the height of tree.
-pair<bool, int> CheckBalanced(const unique_ptr<BinaryTreeNode<int>>& tree) {
-    pair<bool, int> tmp;
-    if (!tree->left) {
-        tmp.first = true;
-        tmp.second = 0;
-    }
-    else {
-        tmp = CheckBalanced( tree->left );
-    }
-    
-    pair<bool, int> tmp2;
-    if (!tree->right) {
-        tmp2.first = true;
-        tmp2.second = 0;
-    }
-    else {
-        tmp2 = CheckBalanced( tree->right );
-    }
-    printf("tmp.second=%d, tmp2.second=%d\n", tmp.second, tmp2.second);
-    
-    pair<bool, int> tmp3;
-    if (tmp.first && tmp2.first && std::abs(tmp.second-tmp2.second)<=1) {
-        tmp3.first = true;
-        tmp3.second =  1+tmp.second;
-    }
-    else {
-        tmp3.first = false;
-    }
-    return tmp3;
+bool IsBalancedBinaryTree(unique_ptr<BinaryTreeNode<T>> node) {
+    depth_L = findDepth(node->left);
+    depth_R = findDepth(node->riht);
+    if (std::abs(depth_L - depth_R)>1)
+        return false;
+        
+    return true;
 }
-// @exclude
 
 int main(int argc, char* argv[]) {
   //  balanced binary tree test
