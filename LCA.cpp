@@ -59,8 +59,7 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{3, nullptr, nullptr});
+  unique_ptr<BinaryTreeNode<int>> root(new BinaryTreeNode<int>{3, nullptr, nullptr});
   root->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{2, nullptr, nullptr});
   root->left->left = unique_ptr<BinaryTreeNode<int>>(
